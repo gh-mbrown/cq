@@ -12,6 +12,20 @@ pub fn build(b: *std.Build) void {
         },
     );
 
+    const argparse = b.addModule(
+        "args",
+        .{
+            .target = target,
+            .root_source_file = b.path("src/argparse/Mod.zig"),
+            .imports = &.{
+                .{
+                    .name = "args",
+                    .module = utils,
+                },
+            },
+        },
+    );
+
     const exe = b.addExecutable(.{
         .name = "cq",
         .root_module = b.createModule(.{
@@ -20,8 +34,12 @@ pub fn build(b: *std.Build) void {
             .optimize = optimize,
             .imports = &.{
                 .{
-                    .name = "utils ",
+                    .name = "utils",
                     .module = utils,
+                },
+                .{
+                    .name = "args",
+                    .module = argparse,
                 },
             },
         }),
