@@ -3,6 +3,7 @@ const std = @import("std");
 const Type = std.builtin.Type;
 const eql = std.mem.eql;
 const comptimePrint = std.fmt.comptimePrint;
+const trimStart = std.mem.trimStart;
 
 pub fn structFields(
     comptime T: type,
@@ -22,4 +23,16 @@ pub fn findField(
 
     const msg = comptimePrint("Field name {} not in passed fields", .{field});
     @compileError(msg);
+}
+
+pub fn containsFlag(
+    comptime flag_name: []const u8,
+    args: []const []const u8,
+) ?usize {
+    for (args, 0..) |a, i| {
+        const stripped = trimStart(u8, a, "--");
+        if (eql(u8, flag_name, stripped)) return i;
+    }
+
+    return null;
 }

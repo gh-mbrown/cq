@@ -1,6 +1,10 @@
 const std = @import("std");
 
-pub fn contains(comptime T: type, arr: []const T, val: T) bool {
+pub fn contains(
+    comptime T: type,
+    arr: []const T,
+    val: T,
+) bool {
     const T_info = @typeInfo(T);
 
     if (T_info == .array)
