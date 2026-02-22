@@ -1,4 +1,5 @@
 const std = @import("std");
+const utils = @import("utils");
 const p_utils = @import("Utils.zig");
 
 const Type = std.builtin.Type;
@@ -35,7 +36,7 @@ pub fn ArgParser(comptime T: type) type {
             const args = try argsAlloc(self.allocator);
             defer self.allocator.free(args);
 
-            inline for (self.a_fields) |a| {}
+            inline for (self.f_fields) |f| {}
         }
     };
 }
